@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import InputMedsCSV from './components/InputMedsCSV';
+import Nav from './components/Nav';
+import SectionOptions from './components/SectionOptions';
+import AppContext from './context/AppContext';
 
 function App() {
+  const [meds, setMeds] = useState();
+  const [section, setSection] = useState();
+
+  const dataProvider = {
+    meds: meds,
+    setMeds: setMeds ,
+    section: section,
+    setSection: setSection
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={dataProvider}>
+      <main>
+        <h1>Medicamentos do Brasil</h1>
+          {!meds ? (
+            <div>
+              <h2>Priemeiramente</h2>
+
+              <InputMedsCSV />
+            </div>
+          ) : (
+            <>
+              <p>
+                <strong>Arquivo carregado com sucesso!</strong>
+              </p>
+              <Nav />
+              <SectionOptions />
+            </>
+          )}
+      </main>
+    </AppContext.Provider>
   );
 }
 
