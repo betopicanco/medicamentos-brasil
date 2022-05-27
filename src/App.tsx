@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import './App.css';
+import Header from './components/Header';
 import InputMedsCSV from './components/InputMedsCSV';
 import Nav from './components/Nav';
 import SectionOptions from './components/SectionOptions';
-import AppContext from './context/AppContext';
+import SuccessWarning from './components/SuccessWarning';
+import AppContext from './contexts/AppContext';
 
 function App() {
   const [meds, setMeds] = useState();
@@ -18,19 +19,16 @@ function App() {
 
   return (
     <AppContext.Provider value={dataProvider}>
-      <main>
-        <h1>Medicamentos do Brasil</h1>
+      <Header />
+      <h1 className='text-center text-2xl py-4'>
+        Medicamentos do Brasil
+      </h1>
+      <main className='h-full'>
           {!meds ? (
-            <div>
-              <h2>Priemeiramente</h2>
-
-              <InputMedsCSV />
-            </div>
+            <InputMedsCSV />
           ) : (
             <>
-              <p>
-                <strong>Arquivo carregado com sucesso!</strong>
-              </p>
+              <SuccessWarning />
               <Nav />
               <SectionOptions />
             </>

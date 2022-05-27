@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import AppContext from "../../../context/AppContext";
+import AppContext from "../../../contexts/AppContext";
 import GrantingListTable from "./GrantingListTable";
 
 const GrantingList = () => {
@@ -12,7 +12,7 @@ const GrantingList = () => {
     let positive = 0;
     let negative = 0;
     
-    meds.map((med: any) => {
+    meds.forEach((med: any) => {
       if(med['COMERCIALIZAO 2020'] === 'Sim') {
         const grantingList = med['LISTA DE CONCESSO DE CRDITO TRIBUTRIO PISCOFINS'];
         if(grantingList === 'Negativa') {
@@ -36,7 +36,7 @@ const GrantingList = () => {
       positive: positivePercent,
       negative: negativePercent
     })
-  }, []);
+  }, [meds]);
 
   return (
     <section>

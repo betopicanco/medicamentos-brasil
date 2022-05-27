@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AppContext from "../../../context/AppContext";
+import AppContext from "../../../contexts/AppContext";
 
 interface InputBarCodeProps {
   setResult: (value: any) => void

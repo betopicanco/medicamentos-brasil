@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import AppContext from "../../context/AppContext";
+import AppContext from "../../contexts/AppContext";
 import GrantingList from "./GrantingList";
-import QueryByBarCode from "./QueryByBarName";
+import QueryByBarCode from "./QueryByBarCode";
 import QueryByName from "./QueryByName";
 
 const SectionOptions = () => {
   const {section} = useContext(AppContext);
-  let element: JSX.Element = <p>Escolha uma opçao acima</p>;
+  let element = <p>Escolha uma opçao acima</p>;
   
   switch (section) {
     case 'queryByName':
