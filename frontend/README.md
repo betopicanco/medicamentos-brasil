@@ -2,6 +2,12 @@
 
 <img src="./public/tela-inicial.png" alt="tela inicial">
 
+Front End do projeto desenvolvido para a Etapa 2 do 
+Programa IT Academy – Processo Seletivo – Edição #16
+<a href="../IT16 - Instruções Exercício Técnico.pdf">
+  Enunciado do exercício técnico
+</a>
+
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
