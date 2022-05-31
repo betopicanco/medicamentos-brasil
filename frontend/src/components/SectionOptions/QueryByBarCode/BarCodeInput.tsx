@@ -1,44 +1,67 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../../../contexts/AppContext";
+import MedInterface from "../../../interfaces/MedInterface";
 
 interface InputBarCodeProps {
   setResult: (value: any) => void
 }
 
 const BarCodeInput = (props: InputBarCodeProps) => {
-  const {setResult} = props;
-  const {meds} = useContext(AppContext);
+  const { setResult } = props;
+  const { meds } = useContext(AppContext);
+  const [ optionsList, setOptionsList ] = useState([]);
 
-  const handleOnBlur = (value: string) => {
+  useEffect(() => {
+    // Lista de barCodes para opções do datalist
+    const list = meds.map((med: MedInterface, index: number) => {
+      return (
+        <option key={index} value={med.barCode} />
+      );
+    });
+
+    setOptionsList(list);
+  }, []);
+
+  const handleOnChange = (value: string) => {
     // Procura o produto pelo código de barras informado
-    const found = meds.find((med: any) => med['EAN 1'] === value);
+    const found = meds.find((med: MedInterface) => med.barCode === value);
 
-    // Filtra os registros do produto encontrado
-    const filter = meds.filter((med: any) => {
-      return med['PRODUTO'] === found?.['PRODUTO']
-    })
+    if(found) {
+      // Filtra os registros do produto encontrado
+      const filter = meds.filter((med: MedInterface) => {
+        return med.product === found?.product;
+      });
 
-    setResult(filter);
+      setResult(filter);
+    } else {
+      setResult(null);
+    }
   }
-  return (
+
+  const input = (
     <div>
       <label htmlFor="barCode">Informe o código de barras: </label>
+
       <input
+        className={`
+          ml-2 px-2 py-1
+          border-2 
+        `}
         id="barCode"
         type="number"
         list="barCodes"
-        onChange={(e) => handleOnBlur(e.target.value)} />
+        onChange={(e) => handleOnChange(e.target.value)} 
+      />
 
       <datalist id="barCodes">
-        {/* Lista todas as opções de código de barras no input */}
-        {meds.map((med: any, key: number) => {
-          return (
-            <option key={key} value={med['EAN 1']}/>
-          )
-        })}
+        {optionsList}
       </datalist>
     </div>
   );
+
+  return (optionsList.length >= 1) ? input : (
+    <p>Carregando...</p>
+  )
 }
 
 export default BarCodeInput;

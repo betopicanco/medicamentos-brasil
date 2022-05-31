@@ -5,9 +5,10 @@ import Nav from './components/Nav';
 import SectionOptions from './components/SectionOptions';
 import SuccessWarning from './components/SuccessWarning';
 import AppContext from './contexts/AppContext';
+import MedInterface from './interfaces/MedInterface';
 
 function App() {
-  const [meds, setMeds] = useState();
+  const [meds, setMeds] = useState<MedInterface[]>();
   const [section, setSection] = useState();
 
   const dataProvider = {
@@ -15,7 +16,7 @@ function App() {
     setMeds: setMeds ,
     section: section,
     setSection: setSection
-  }
+  };
 
   return (
     <AppContext.Provider value={dataProvider}>

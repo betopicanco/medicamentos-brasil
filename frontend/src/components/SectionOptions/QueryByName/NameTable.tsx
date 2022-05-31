@@ -1,41 +1,54 @@
 import Table from "../../Table";
 import Td from "../../Td";
+import MedInterface from '../../../interfaces/MedInterface';
+import Th from "../../Th";
 
 interface NameTableProps {
-  result: []
+  result: MedInterface[]
 }
 
 const NameTable = (props: NameTableProps) => {
-  const {result} = props;
+  const { result } = props;
+  const tbody = (
+    <tbody>
+      {result.map((med: MedInterface, index: number) => {
+        return (
+          <tr key={index}>
+            <Td>
+              {med.product}
+            </Td>
+            <Td>
+              {med.presentation}
+            </Td>
+            <Td>
+              R${med.pfTaxFree}
+            </Td>
+          </tr>
+        );
+      })}
+    </tbody>
+  );
 
-  return (
+  const tab = (
     <Table>
       <thead>
         <tr>
-          <th>PRODUTO</th>
-          <th>APRESENTAÇÃO</th>
-          <th>VALOR (SEM iMPOSTOS)</th>
+          <Th>
+            PRODUTO
+          </Th>
+          <Th>
+            APRESENTAÇÃO
+          </Th>
+          <Th>
+            VALOR 
+          </Th>
         </tr>
       </thead>
-      <tbody>
-        {result ? result.map((med, index) => {
-          return(
-            <tr key={index}>
-              <Td>
-                {med['PRODUTO']}
-              </Td>
-              <Td>
-                {med['APRESENTAO']}
-              </Td>
-              <Td>
-                R${med['PF Sem Impostos']}
-              </Td>
-            </tr>
-          )
-        }) : ''}
-      </tbody>
+      {tbody}
     </Table>
-  );
+  )
+  
+  return tab;
 }
 
 export default NameTable;

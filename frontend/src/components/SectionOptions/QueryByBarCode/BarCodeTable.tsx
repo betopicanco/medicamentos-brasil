@@ -1,15 +1,18 @@
+import MedInterface from "../../../interfaces/MedInterface";
 import Table from "../../Table";
 import Td from "../../Td";
+import Th from "../../Th";
 
 interface BarCodeTableProps {
-  result: any
+  result: MedInterface[]
 }
 
 const BarCodeTable = (props: BarCodeTableProps) => {
-  const {result} = props;
-  const product = result ? result[0]['PRODUTO'] : '';
+  const { result } = props;
+  const product = result ? result[0].product : '';
+
+  // Formata o preço para real Ex: R$ 10,99
   const parsePrice = (price: number) => {
-    // Formata o preço para real (R$ 10,99)
     return price.toLocaleString('pt-BR', { 
       minimumFractionDigits: 2, 
       style: 'currency', 
@@ -20,36 +23,33 @@ const BarCodeTable = (props: BarCodeTableProps) => {
   let biggerPrice = 0;
   let smallerPrice = 10000000;
 
-  result.forEach((med: any) => {
-    if(typeof med['PMC 0'] === 'string') {
-      const replace = med['PMC 0'].replace(',', '.');
-      const parser = parseFloat(replace);
+  result.forEach((med: MedInterface) => {
+    const pmc0Percent = med.pmc0Percent;
 
-      if(biggerPrice < parser) biggerPrice = parser;
-      if(smallerPrice > parser) smallerPrice = parser;
-    }
+    if(biggerPrice  < pmc0Percent) biggerPrice  = pmc0Percent;
+    if(smallerPrice > pmc0Percent) smallerPrice = pmc0Percent;
   });
+  
   const formatedBiggerPrice = parsePrice(biggerPrice);
   const formatedSmallerPrice = parsePrice(smallerPrice);
   const formatedDiference = parsePrice(biggerPrice - smallerPrice);
 
-  const warning = <p>Busque por um código de barras</p>;
   const table = (
     <Table>
       <thead>
         <tr>
-          <th>
+          <Th>
             PRODUTO
-          </th>
-          <th>
+          </Th>
+          <Th>
             MAIOR PREÇO
-          </th>
-          <th>
+          </Th>
+          <Th>
             MENOR PREÇO
-          </th>
-          <th>
+          </Th>
+          <Th>
             DIFERENÇA
-          </th>
+          </Th>
         </tr>
       </thead>
       <tbody>
@@ -71,7 +71,7 @@ const BarCodeTable = (props: BarCodeTableProps) => {
     </Table>
   );
 
-  return result[0]['PRODUTO'] ? table : warning;
+  return table;
 }
 
 export default BarCodeTable;

@@ -1,5 +1,6 @@
 import Table from "../../Table";
 import Td from "../../Td";
+import Th from "../../Th";
 
 interface GrantingListTableProps {
   percentage: {
@@ -17,6 +18,7 @@ const GrantingListTable = (props: GrantingListTableProps) => {
     negative
   } = percentage;
 
+  // Constrói o gráfico
   const buildGraph = (percent: number) => {
     let graph = '';
 
@@ -31,9 +33,9 @@ const GrantingListTable = (props: GrantingListTableProps) => {
     <Table>
       <thead>
         <tr>
-          <th>CLASSIFICAÇÃO</th>
-          <th>PERCENTUAL</th>
-          <th>GRÁFICO</th>
+          <Th>CLASSIFICAÇÃO</Th>
+          <Th>PERCENTUAL</Th>
+          <Th>GRÁFICO</Th>
         </tr>
       </thead>
       <tbody>
@@ -55,7 +57,7 @@ const GrantingListTable = (props: GrantingListTableProps) => {
       </tbody>
       <tfoot>
         <tr>
-          <Td>TOTAL</Td>
+          <Th>TOTAL</Th>
           <Td>100%</Td>
         </tr>
       </tfoot>

@@ -1,3 +1,4 @@
+// Roteamento
 import { Router } from 'express';
 
 import medInterface from './Meds/interface';
@@ -5,31 +6,37 @@ import medHeader from './Meds/header';
 
 const router = Router();
 
+// Recebe a lista de medicamentos e devolve a lista tratada: 
 router.post(
   '/meds',
-  async (req: any, res: any, next: any) => {
+  async (req: any, res: any) => {
+    // Passa a propriedade para number
     const propToNumber = (value: string, prop: string) => {
       if(value === '') return 0;
 
-      const number = Number(value.replace(',', '.'));
+      if(value) {
+        const number = Number(value.replace(',', '.'));
 
-      if(isNaN(number)) throw `${prop} informado contém um valor inválido`;
+        if(isNaN(number)) throw `${prop} informado contém um valor inválido`;
+        
+        return number;
+      }
 
-      return number;
+      
     }
 
     try {
-      const medsJson:JSON = req.body
-      const medsString = JSON.stringify(medsJson);
-      const medsList = JSON.parse(medsString);
-
+      const data = req.body.data;
+      
+      // Confere se as colunas necessárias estão na lista
       medHeader.forEach((header) => {
-        if(!(header in  medsList[0])) throw `Coluna ${header} não encontrada!`;
+        if(!(header in data[0])) throw `Coluna ${header} não encontrada!`;
       });
 
-      const meds:medInterface[] = [];
+      const meds: medInterface[] = [];
 
-      medsList.forEach((med: any) => {
+      // Passa as propriedades pertinentes da lista para um novo array de objetos
+      data.forEach((med: any) => {
         meds.push({
           substance: med['SUBSTNCIA'],
           barCode: med['EAN 1'],
@@ -42,7 +49,7 @@ router.post(
         });
       });
 
-      return res.json({meds});
+      return res.json({meds: meds});
     } catch(err: any) {
       console.error(err);
 

@@ -1,11 +1,13 @@
-import { stringify } from "querystring";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CSVReader from "react-csv-reader";
 import AppContext from "../contexts/AppContext";
-
+import api from "../services/api";
 
 const InputMedsCSV = () => {
   const { setMeds } = useContext(AppContext);
+  const [error, setError] = useState();
+
+  // Opções do conversor de CSV
   const papaparseOptions = {
     header: true,
     transformHeader: (header: any) => {
@@ -21,9 +23,14 @@ const InputMedsCSV = () => {
       return parsed;
     } 
   }
-  const handleOnFileLoaded = (data: any) => {
-    console.log(JSON.stringify(data));
-    setMeds(data);
+  const handleOnFileLoaded = async (data: any) => {
+    api.post('/meds', {
+      data: data
+    })
+      .then((res) => {
+        setMeds(res.data.meds);
+      })
+      .catch((err) => setError(err.response.data?.error));
   }
 
   return (
@@ -33,15 +40,27 @@ const InputMedsCSV = () => {
           Para continuar é necessário inserir os dados em formato CSV: 
         </strong>
       </label>
+      
       <CSVReader 
         cssClass="p-4 "
         cssInputClass={`
           file:bg-indigo-400 file:border-0
           file:rounded-full file:py-2 file:px-4
-          file:text-white active:file:bg-blue-600
+          file:text-white active:file:bg-indigo-500
         `}
         parserOptions={papaparseOptions}
         onFileLoaded={(data) => handleOnFileLoaded(data)}/>
+
+      {error && (
+        <>
+          <p>
+            <strong>{error}</strong>
+          </p>
+          <p>
+            Corrija o erro e tente novamente
+          </p>
+        </>
+      )}
     </div>
   );
 }

@@ -1,17 +1,22 @@
 import { useState } from "react";
+import MedInterface from "../../../interfaces/MedInterface";
 import NameInput from "./NameInput";
 import NameTable from "./NameTable";
 
 const QueryByName = () => {
-  const [result, setResult] = useState<any>([]);
+  const [result, setResult] = useState<MedInterface[]>();
   
-  return (
+  const section = (
     <section>
       <NameInput setResult={setResult}/>
 
-      <NameTable result={result}/>
+      {result && (
+        <NameTable result={result}/>
+      )}
     </section>
   );
+  
+  return section;
 }
 
 export default QueryByName;
