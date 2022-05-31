@@ -34,7 +34,7 @@ const NameInput = (props: NameInputProps) => {
 
   const input = (
     <div>
-      <label>Pesquise pelo nome do produto: </label>
+      <label>Consulte pelo nome do medicamento: </label>
 
       <input 
         className={`

@@ -20,13 +20,15 @@ const GrantingListTable = (props: GrantingListTableProps) => {
 
   // Constrói o gráfico
   const buildGraph = (percent: number) => {
-    let graph = '';
+    const graphic = [];
 
     for(let i = 0 ; i < (percent - 1) ; i++) {
-      graph += '*';
+      graphic.push(
+        <span key={i} className="text-xl ml-1">*</span>
+      );
     }
 
-    return graph;
+    return graphic;
   }
 
   return (

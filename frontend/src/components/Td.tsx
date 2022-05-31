@@ -4,7 +4,7 @@ interface TdProps {
 
 const Td = (props: TdProps) => {
   return(
-    <td className="border border-indigo-500 px-1 py-2">
+    <td className="border border-indigo-500 px-2 py-1">
       {props.children}
     </td>
   );

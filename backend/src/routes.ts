@@ -15,22 +15,23 @@ router.post(
       if(value === '') return 0;
 
       if(value) {
+        // Substitui '.' por ',' para deixá-lo no padrão number
         const number = Number(value.replace(',', '.'));
 
+        // Lança uma exceção
         if(isNaN(number)) throw `${prop} informado contém um valor inválido`;
-        
+
         return number;
       }
-
-      
     }
 
     try {
+      if(req.body.data.length === 0) throw `Arquivo vazio`;
       const data = req.body.data;
       
-      // Confere se as colunas necessárias estão na lista
-      medHeader.forEach((header) => {
-        if(!(header in data[0])) throw `Coluna ${header} não encontrada!`;
+      //Confere se as propriedades necessárias estão na lista
+      medHeader.forEach((prop) => {
+        if(!(prop in data[0])) throw `Propriedade ${prop} não encontrada!`;
       });
 
       const meds: medInterface[] = [];

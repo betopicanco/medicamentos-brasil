@@ -14,7 +14,7 @@ const SectionOptions = () => {
       break;
   
     case 'queryByBarCode':
-      element = <QueryByBarCode/>
+      element = <QueryByBarCode />
       break;
   
     case 'grantingList':

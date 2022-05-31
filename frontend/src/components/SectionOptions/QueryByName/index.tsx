@@ -5,7 +5,7 @@ import NameTable from "./NameTable";
 
 const QueryByName = () => {
   const [result, setResult] = useState<MedInterface[]>();
-  
+
   const section = (
     <section>
       <NameInput setResult={setResult}/>
