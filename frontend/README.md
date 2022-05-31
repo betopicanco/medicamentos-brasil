@@ -2,11 +2,24 @@
 
 <img src="./public/tela-inicial.png" alt="tela inicial">
 
-Front End do projeto desenvolvido para a Etapa 2 do 
-Programa IT Academy – Processo Seletivo – Edição #16
-<a href="../IT16 - Instruções Exercício Técnico.pdf">
-  Enunciado do exercício técnico
-</a>
+Front End do projeto desenvolvido para a 
+Etapa 2 do Programa IT Academy – Processo Seletivo – Edição #16
+
+
+## 💻 Pré-requisitos
+
+Antes de começar, verifique se você atendeu aos seguintes requisitos:
+
+* Você instalou a versão mais recente de `Node.js` e do `yarn`
+* Você leu o guia do funcionamento do software disponível em <a href="../Etapa 2.pdf">Etapa 2</a>
+* A sua porta `3000` está livre
+
+## 🚀 Instalando o Medicamentos do Brasil
+
+Para instalar o projeto, siga esta etapa
+```
+yarn install
+```
 
 <!-- # Getting Started with Create React App
 
