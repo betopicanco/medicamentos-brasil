@@ -1,7 +1,5 @@
 # Medicamentos do Brasil 
 
-<img src="./public/tela-inicial.png" alt="tela inicial">
-
 Solução desenvolvida para a 
 Etapa 2 do Programa IT Academy – Processo Seletivo – Edição #16
 
