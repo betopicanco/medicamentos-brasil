@@ -1,4 +1,3 @@
-// Roteamento
 import { Router } from 'express';
 
 import medInterface from './Meds/interface';
@@ -19,7 +18,7 @@ router.post(
         const number = Number(value.replace(',', '.'));
 
         // Lança uma exceção
-        if(isNaN(number)) throw `${prop} informado contém um valor inválido`;
+        if(isNaN(number)) throw `${prop} informado(a) contém um valor inválido`;
 
         return number;
       }
